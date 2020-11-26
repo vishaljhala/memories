@@ -1,0 +1,10 @@
+development:
+  postgres_user: memories_user
+  postgres_password: memories_password
+  postgres_db: memories_dev
+
+test:
+  postgres_user: memories_user
+  postgres_password: memories_password
+  postgres_db: memories_test
+
