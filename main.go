@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"log"
-	"memories/db"
+	"memories/application"
 	"memories/services"
 	"net/http"
 	"time"
@@ -15,13 +15,13 @@ func main() {
 	router := mux.NewRouter()
 
 	addRoutes(router)
-	db.InitDB()
+	application.InitDB()
+	application.InitLogger()
 
 	srv := &http.Server{
 		Handler:      router,
 		Addr:         "127.0.0.1:8000",
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
+		WriteTimeout: 15 * time.Second, ReadTimeout: 15 * time.Second,
 	}
 
 	log.Fatal(srv.ListenAndServe())
