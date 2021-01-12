@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  database:
+    image: postgres
+    networks:
+      db_network:
+        aliases:
+          - database_network
+    env_file:
+      - database.env
+    volumes: 
+      - database-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    
+  migrate:
+    image: migrate/migrate
+    networks:
+      - db_network 
+    volumes:
+      - ./migrations:/migrations
+    command: ["-path", "/migrations", "-database",  "postgres://memories_user:memories_password@database:5432/memories_dev?sslmode=disable", "up", "1"]
+    links: 
+      - database 
+networks:
+  db_network:
+volumes:
+  database-data: ~
+
